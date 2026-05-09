@@ -1,0 +1,23 @@
+# Data files (too large for GitHub)
+data/raw/
+data/processed/
+data/aligned/
+data/counts/
+data/reference/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Conda environment
+*.egg-info/
+
+# Results (generated files)
+results/deseq2/*.png
+pipeline.db
+
+# Demo files
+demo_*.fastq.gz
+demo_*.csv

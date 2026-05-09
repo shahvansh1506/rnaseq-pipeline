@@ -1,0 +1,20 @@
+# ── Data fetching & parsing ───────────────────────────────────
+GEOparse>=2.0.3          # Download datasets from NCBI GEO
+biopython>=1.81          # Biological sequence utilities
+requests>=2.31           # HTTP requests for streaming downloads
+tqdm>=4.65               # Progress bars for long downloads
+
+# ── Data manipulation ─────────────────────────────────────────
+pandas>=2.0              # DataFrames for count matrices
+numpy>=1.24              # Numerical operations
+
+# ── Database ──────────────────────────────────────────────────
+sqlalchemy>=2.0          # ORM for SQLite pipeline database
+
+# ── Dashboard ─────────────────────────────────────────────────
+streamlit>=1.28          # Interactive web dashboard
+plotly>=5.17             # Interactive plots in Streamlit
+
+# ── Testing ───────────────────────────────────────────────────
+pytest>=7.4              # Unit testing framework
+pytest-cov>=4.1          # Test coverage reports

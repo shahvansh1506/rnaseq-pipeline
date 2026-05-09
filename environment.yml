@@ -1,0 +1,19 @@
+name: rnaseq_pipeline
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - r-base=4.3
+  # ── R packages ────────────────────────────────────────────────
+  - r-ggplot2
+  - r-pheatmap
+  - r-ggrepel
+  - r-dplyr
+  - r-rcolorbrewer
+  - r-tibble
+  # ── Python packages ───────────────────────────────────────────
+  - pip
+  - pip:
+    - -r requirements.txt
