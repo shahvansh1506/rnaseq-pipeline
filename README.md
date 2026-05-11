@@ -4,7 +4,7 @@ A full end-to-end RNA-seq pipeline built with Python and R — takes raw sequenc
 
 Built this because most RNA-seq tutorials stop halfway. This one doesn't.
 
----
+\---
 
 ## What it does
 
@@ -20,7 +20,7 @@ Raw sequencing data is messy — gigabytes of compressed reads, quality issues, 
 8. **Validates** results against the NCBI Gene database
 9. **Visualizes** everything in an interactive Streamlit dashboard
 
----
+\---
 
 ## The biology behind it
 
@@ -28,44 +28,44 @@ RNA-seq measures gene expression — which genes are switched on in a cell and b
 
 The dataset used for development is **GSE60450** — a mammary gland study comparing basal and luminal cell populations across virgin, pregnant and lactating mice. Classic benchmark dataset in the bioinformatics community.
 
----
+\---
 
 ## Tech stack
 
-| Layer | Tools |
-|---|---|
-| Language | Python 3.11, R 4.3 |
-| DE Analysis | DESeq2, edgeR |
-| Alignment | HISAT2, featureCounts |
-| Quality Control | FastQC, MultiQC, Trimmomatic |
-| Data | Biopython, GEOparse, pandas, numpy |
-| Dashboard | Streamlit, Plotly |
-| Database | NCBI Entrez API, SQLAlchemy |
-| Testing | pytest (65 tests) |
+|Layer|Tools|
+|-|-|
+|Language|Python 3.11, R 4.3|
+|DE Analysis|DESeq2, edgeR|
+|Alignment|HISAT2, featureCounts|
+|Quality Control|FastQC, MultiQC, Trimmomatic|
+|Data|Biopython, GEOparse, pandas, numpy|
+|Dashboard|Streamlit, Plotly|
+|Database|NCBI Entrez API, SQLAlchemy|
+|Testing|pytest (65 tests)|
 
----
+\---
 
 ## Project structure
 
 ```
-rnaseq_pipeline/
+rnaseq\\\\\\\_pipeline/
 ├── src/
 │   ├── config.py               # all paths and parameters in one place
 │   ├── parsers/
-│   │   ├── geo_fetcher.py      # downloads datasets from NCBI GEO
-│   │   ├── fastq_parser.py     # memory-efficient FASTQ reader
-│   │   └── count_parser.py     # loads and cleans count matrices
+│   │   ├── geo\\\\\\\_fetcher.py      # downloads datasets from NCBI GEO
+│   │   ├── fastq\\\\\\\_parser.py     # memory-efficient FASTQ reader
+│   │   └── count\\\\\\\_parser.py     # loads and cleans count matrices
 │   ├── qc/
-│   │   ├── quality_control.py  # FastQC wrapper + report parser
+│   │   ├── quality\\\\\\\_control.py  # FastQC wrapper + report parser
 │   │   └── trimmer.py          # Trimmomatic wrapper + Python fallback
 │   ├── alignment/
 │   │   ├── aligner.py          # HISAT2 wrapper
 │   │   └── quantifier.py       # featureCounts wrapper
 │   ├── analysis/
-│   │   ├── de_analysis.R       # DESeq2 script (volcano, heatmap, PCA)
-│   │   └── run_deseq2.py       # Python wrapper that calls the R script
+│   │   ├── de\\\\\\\_analysis.R       # DESeq2 script (volcano, heatmap, PCA)
+│   │   └── run\\\\\\\_deseq2.py       # Python wrapper that calls the R script
 │   └── validation/
-│       └── ncbi_validator.py   # checks DE genes against NCBI
+│       └── ncbi\\\\\\\_validator.py   # checks DE genes against NCBI
 ├── dashboard/
 │   └── app.py                  # Streamlit dashboard
 ├── tests/                      # 65 unit tests across all modules
@@ -73,14 +73,15 @@ rnaseq_pipeline/
 └── requirements.txt
 ```
 
----
+\---
 
 ## Setup
 
 ### Requirements
-- Anaconda / Miniconda
-- R 4.3+
-- Git
+
+* Anaconda / Miniconda
+* R 4.3+
+* Git
 
 ### Installation
 
@@ -91,27 +92,28 @@ cd rnaseq-pipeline
 
 # create and activate environment
 conda env create -f environment.yml
-conda activate rnaseq_pipeline
+conda activate rnaseq\\\\\\\_pipeline
 
-# install R packages (takes ~15 mins first time)
-Rscript install_r_packages.R
+# install R packages (takes \\\\\\\~15 mins first time)
+Rscript install\\\\\\\_r\\\\\\\_packages.R
 ```
 
 Then open `src/config.py` and set your email:
+
 ```python
-ENTREZ_EMAIL = "your@email.com"
+ENTREZ\\\\\\\_EMAIL = "your@email.com"
 ```
 
----
+\---
 
 ## Running the pipeline
 
 ```bash
 # test each module works
-python demo_module2.py    # FASTQ parser
-python demo_module3.py    # QC and trimming
-python demo_module4.py    # alignment and quantification
-python demo_module5.py    # DESeq2 differential expression
+python demo\\\\\\\_module2.py    # FASTQ parser
+python demo\\\\\\\_module3.py    # QC and trimming
+python demo\\\\\\\_module4.py    # alignment and quantification
+python demo\\\\\\\_module5.py    # DESeq2 differential expression
 
 # launch the dashboard
 streamlit run dashboard/app.py
@@ -120,7 +122,29 @@ streamlit run dashboard/app.py
 pytest tests/ -v
 ```
 
----
+\---
+
+## Using your own data
+
+**\*\*From GEO:\*\*** Change the accession number in geo\_fetcher.py to
+
+any GEO study ID (e.g. GSE12345).
+
+
+
+**\*\*From your own FASTQ files:\*\*** Drop files into data/raw/ and
+
+run the pipeline from Module 3 onwards.
+
+
+
+**\*\*From an existing count matrix:\*\*** Skip straight to DESeq2 by
+
+loading your CSV with CountParser and running DESeq2Runner.
+
+See demo\_module5.py for a full example.
+
+\---
 
 ## Key design decisions
 
@@ -132,7 +156,7 @@ pytest tests/ -v
 
 **Modular architecture** — each step reads from and writes to files. This means you can re-run any single step without rerunning the whole thing, and swap out any tool (e.g. STAR instead of HISAT2) with minimal changes.
 
----
+\---
 
 ## Test results
 
@@ -144,7 +168,7 @@ Tests cover: FASTQ parsing, GC content calculation, quality trimming,
 adapter removal, count matrix filtering, CPM normalization, metadata
 validation, DESeq2 result parsing, NCBI validation, and dashboard logic.
 
----
+\---
 
 ## Output files
 
@@ -152,34 +176,35 @@ After running the full pipeline:
 
 ```
 results/deseq2/
-├── de_results.csv       # full table of all genes with stats
-├── volcano_plot.png     # log2FC vs significance
-├── pca_plot.png         # sample clustering
-└── heatmap_top50.png    # top 50 DE genes across samples
+├── de\\\\\\\_results.csv       # full table of all genes with stats
+├── volcano\\\\\\\_plot.png     # log2FC vs significance
+├── pca\\\\\\\_plot.png         # sample clustering
+└── heatmap\\\\\\\_top50.png    # top 50 DE genes across samples
 ```
 
----
+\---
 
 ## What I learned building this
 
-- How RNA-seq data actually flows from sequencer to biological insight
-- Why generators matter when files are larger than your RAM
-- How DESeq2's negative binomial model handles biological replication
-- How to wrap R scripts cleanly in a Python pipeline
-- How to write tests for bioinformatics code that depends on external tools
+* How RNA-seq data actually flows from sequencer to biological insight
+* Why generators matter when files are larger than your RAM
+* How DESeq2's negative binomial model handles biological replication
+* How to wrap R scripts cleanly in a Python pipeline
+* How to write tests for bioinformatics code that depends on external tools
 
----
+\---
 
 ## Roadmap
 
-- [ ] Snakemake workflow for full automation
-- [ ] STAR aligner support
-- [ ] Gene ontology enrichment (clusterProfiler)
-- [ ] Multi-comparison support in the dashboard
-- [ ] Docker container for reproducibility
+* \[ ] Snakemake workflow for full automation
+* \[ ] STAR aligner support
+* \[ ] Gene ontology enrichment (clusterProfiler)
+* \[ ] Multi-comparison support in the dashboard
+* \[ ] Docker container for reproducibility
 
----
+\---
 
 ## License
 
 MIT
+
